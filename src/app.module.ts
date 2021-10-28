@@ -5,6 +5,8 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { Message } from './db/entities/message';
 import { MessagesModule } from './modules/messages/messages.module';
+import { RemoteMessageServerModule } from './modules/remote-message-server/remote-message-server.module';
+import { RemoteMessageClientModule } from './modules/remote-message-client/remote-message-client.module';
 
 @Module({
   imports: [
@@ -19,7 +21,9 @@ import { MessagesModule } from './modules/messages/messages.module';
         synchronize: true,
         entities: [Message]
       }),
-      MessagesModule
+      MessagesModule,
+      RemoteMessageServerModule,
+      RemoteMessageClientModule
   ],
   controllers: [AppController],
   providers: [AppService],
