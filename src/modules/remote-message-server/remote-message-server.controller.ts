@@ -1,9 +1,9 @@
 import { Controller } from '@nestjs/common';
-import {MessagePattern, Payload} from '@nestjs/microservices';
-import {MessageDto} from '../dto/messages';
+import { MessagePattern, Payload} from '@nestjs/microservices';
 
-import {MessagesService} from '../messages/messages.service';
-import {Message} from '../../db/entities/message';
+import { MessageDto } from '../dto/messages';
+import { MessagesService } from '../messages/messages.service';
+import { Message } from '../../db/entities/message';
 
 @Controller('remote-message-server')
 export class RemoteMessageServerController {

@@ -1,8 +1,9 @@
-import {Inject, Injectable} from '@nestjs/common';
-import {ClientProxy} from '@nestjs/microservices';
-import {firstValueFrom, Observable} from 'rxjs';
-import {Message} from '../../db/entities/message';
-import {MessageDto} from '../dto/messages';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
+import { firstValueFrom } from 'rxjs';
+
+import { Message } from '../../db/entities/message';
+import { MessageDto } from '../dto/messages';
 
 @Injectable()
 export class RemoteMessageClientService {

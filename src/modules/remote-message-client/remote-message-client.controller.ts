@@ -1,8 +1,8 @@
-import {Body, Controller, Delete, Get, Inject, Param, Post, Put} from '@nestjs/common';
-import {Observable} from 'rxjs';
-import {Message} from '../../db/entities/message';
-import {MessageDto} from '../dto/messages';
-import {RemoteMessageClientService} from './remote-message-client.service';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+
+import { Message} from '../../db/entities/message';
+import { MessageDto } from '../dto/messages';
+import { RemoteMessageClientService } from './remote-message-client.service';
 
 @Controller('remote-message-client')
 export class RemoteMessageClientController {
