@@ -4,7 +4,7 @@ import { Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-    if (process.env.IS_MICROSERVICE && process.env.IS_MICROSERVICE === 'true') {
+    if (process.env.IS_MICROSERVICE && process.env.IS_MICROSERVICE !== 'true') {
         const app = await NestFactory.create(AppModule);
         await app.listen(process.env.MICROSERVICE_SERVER_PORT);
         return
