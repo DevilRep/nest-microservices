@@ -1,12 +1,14 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config';
+import {ClientsModule, Transport} from '@nestjs/microservices';
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { Message } from './db/entities/message';
 import { MessagesModule } from './modules/messages/messages.module';
+import {RemoteMessageClientController} from './modules/remote-message-client/remote-message-client.controller';
+import {RemoteMessageClientService} from './modules/remote-message-client/remote-message-client.service';
 import { RemoteMessageServerModule } from './modules/remote-message-server/remote-message-server.module';
-import { RemoteMessageClientModule } from './modules/remote-message-client/remote-message-client.module';
 
 @Module({
   imports: [
@@ -21,11 +23,18 @@ import { RemoteMessageClientModule } from './modules/remote-message-client/remot
         synchronize: true,
         entities: [Message]
       }),
+      ClientsModule.register([{
+          name: 'MESSAGE_SERVICE',
+          transport: Transport.TCP,
+          options: {
+              host: process.env.MICROSERVICE_CLIENT_HOST,
+              port: Number(process.env.MICROSERVICE_CLIENT_PORT)
+          }
+      }]),
       MessagesModule,
       RemoteMessageServerModule,
-      RemoteMessageClientModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, RemoteMessageClientController],
+  providers: [AppService, RemoteMessageClientService],
 })
 export class AppModule {}
