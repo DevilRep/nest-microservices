@@ -29,7 +29,7 @@ export class RemoteMessageClientController {
     }
 
     @Delete('/:id')
-    public remove(id: number): Promise<Message> {
+    public remove(@Param('id') id: number): Promise<Message> {
         return this.remoteMessageClientService.remove(id)
     }
 }

@@ -29,6 +29,9 @@ export class RemoteMessageServerController {
         @Payload('id') id: number,
         @Payload('data') data: MessageDto
     ): Promise<Message> {
+        if (!id) {
+            throw new Error('Not Found')
+        }
         await this.messagesService.update(id, data)
         return this.messagesService.findOne(id)
     }
