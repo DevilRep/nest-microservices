@@ -22,7 +22,10 @@ export class RemoteMessageClientService {
     }
 
     public update(id: number, data: MessageDto): Promise<Message> {
-        return firstValueFrom(this.remoteMessageClientClient.send<Message>('message:update', data))
+        return firstValueFrom(this.remoteMessageClientClient.send<Message>('message:update', {
+            id,
+            data
+        }))
     }
 
     public remove(id: number): Promise<Message> {
