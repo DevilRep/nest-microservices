@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package Message;
+
+service RemoteMessageClientService {
+  rpc findOne(RemoteMessageFilterById) returns (RemoteMessage) {}
+  rpc create(RemoteMessageCreateData) returns (RemoteMessage) {}
+  rpc update(RemoteMessageUpdateData) returns (RemoteMessage) {}
+  rpc delete(RemoteMessageFilterById) returns (RemoteMessage) {}
+}
+
+message RemoteMessageFilterById {
+  int32 id = 1;
+}
+
+message RemoteMessage {
+  int32 id = 1;
+  string text = 2;
+}
+
+message RemoteMessageCreateData {
+  string text = 1;
+}
+
+message RemoteMessageUpdateData {
+  int32 id = 1;
+  string text = 2;
+}

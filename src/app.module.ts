@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config';
-import {ClientsModule, Transport} from '@nestjs/microservices';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { join } from 'path';
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { Message } from './db/entities/message';
 import { MessagesModule } from './modules/messages/messages.module';
-import {RemoteMessageClientController} from './modules/remote-message-client/remote-message-client.controller';
-import {RemoteMessageClientService} from './modules/remote-message-client/remote-message-client.service';
+import { RemoteMessageClientController } from './modules/remote-message-client/remote-message-client.controller';
+import { RemoteMessageClientService } from './modules/remote-message-client/remote-message-client.service';
 import { RemoteMessageServerModule } from './modules/remote-message-server/remote-message-server.module';
 
 @Module({
@@ -25,10 +26,10 @@ import { RemoteMessageServerModule } from './modules/remote-message-server/remot
       }),
       ClientsModule.register([{
           name: 'MESSAGE_SERVICE',
-          transport: Transport.TCP,
+          transport: Transport.GRPC,
           options: {
-              host: process.env.MICROSERVICE_CLIENT_HOST,
-              port: Number(process.env.MICROSERVICE_CLIENT_PORT)
+              package: 'remote-message',
+              protoPath: join(__dirname, 'modules/remote-message/remote-message.proto')
           }
       }]),
       MessagesModule,

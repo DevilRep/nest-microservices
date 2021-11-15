@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
+import { join } from 'path'
 
 import { AppModule } from './app.module';
 
@@ -12,10 +13,10 @@ async function bootstrap() {
     const app = await NestFactory.createMicroservice(
         AppModule,
         {
-            transport: Transport.TCP,
+            transport: Transport.GRPC,
             options: {
-                host: process.env.MICROSERVICE_SERVER_HOST,
-                port: Number(process.env.MICROSERVICE_SERVER_PORT)
+                package: 'remote-message',
+                protoPath: join(__dirname, 'modules/remote-message/remote-message.proto')
             }
         }
     );
