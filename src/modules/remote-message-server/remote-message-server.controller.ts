@@ -45,7 +45,7 @@ export class RemoteMessageServerController {
     }
 
     @GrpcMethod('RemoteMessageService')
-    public async remove({
+    public async delete({
         id,
     }: RemoteMessageServerFilterByIdInterface): Promise<Message> {
         const message: Message = await this.messagesService.findOne(id);
