@@ -3,10 +3,10 @@ syntax = "proto3";
 package RemoteMessage;
 
 service RemoteMessageService {
-  rpc findOne(RemoteMessageFilterById) returns (RemoteMessage) {}
-  rpc create(RemoteMessageCreateData) returns (RemoteMessage) {}
-  rpc update(RemoteMessageUpdateData) returns (RemoteMessage) {}
-  rpc delete(RemoteMessageFilterById) returns (RemoteMessage) {}
+  rpc FindOne (RemoteMessageFilterById) returns (RemoteMessage) {}
+  rpc Create (RemoteMessageCreateData) returns (RemoteMessage) {}
+  rpc Update (RemoteMessageUpdateData) returns (RemoteMessage) {}
+  rpc Delete (RemoteMessageFilterById) returns (RemoteMessage) {}
 }
 
 message RemoteMessageFilterById {
