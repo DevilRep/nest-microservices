@@ -16,7 +16,7 @@ export class RemoteMessageServerController {
     constructor(private readonly messagesService: MessagesService) {
     }
 
-    @GrpcMethod('RemoteMessageServerService')
+    @GrpcMethod('RemoteMessageService')
     public findOne({ id }: RemoteMessageServerFilterByIdInterface): Promise<RemoteMessageServerInterface> {
         return this.messagesService.findOne(id)
     }
@@ -25,12 +25,12 @@ export class RemoteMessageServerController {
         return this.messagesService.findAll()
     }
 
-    @GrpcMethod('RemoteMessageServerService')
+    @GrpcMethod('RemoteMessageService')
     public create(data: RemoteMessageServerCreateDataInterface): Promise<Message> {
         return this.messagesService.create(data)
     }
 
-    @GrpcMethod('RemoteMessageServerService')
+    @GrpcMethod('RemoteMessageService')
     public async update(
         {id, ...data}: RemoteMessageServerUpdateDataInterface
     ): Promise<Message> {
@@ -41,7 +41,7 @@ export class RemoteMessageServerController {
         return this.messagesService.findOne(id)
     }
 
-    @GrpcMethod('RemoteMessageServerService')
+    @GrpcMethod('RemoteMessageService')
     public async remove({ id }: RemoteMessageServerFilterByIdInterface) : Promise<Message> {
         const message: Message = await this.messagesService.findOne(id)
         await this.messagesService.remove(id)

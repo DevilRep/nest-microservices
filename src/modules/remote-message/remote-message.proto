@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package Message;
 
-service RemoteMessageClientService {
+service RemoteMessageService {
   rpc findOne(RemoteMessageFilterById) returns (RemoteMessage) {}
   rpc create(RemoteMessageCreateData) returns (RemoteMessage) {}
   rpc update(RemoteMessageUpdateData) returns (RemoteMessage) {}

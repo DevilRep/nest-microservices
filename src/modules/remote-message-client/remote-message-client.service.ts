@@ -13,7 +13,7 @@ export class RemoteMessageClientService implements OnModuleInit {
     constructor(@Inject('MESSAGE_SERVICE') private readonly remoteMessageClientClient: ClientGrpc) {}
 
     onModuleInit(): any {
-        this.remoteMessageService = this.remoteMessageClientClient.getService<RemoteMessageClientServiceInterface>('RemoteMessageClientService')
+        this.remoteMessageService = this.remoteMessageClientClient.getService<RemoteMessageClientServiceInterface>('RemoteMessageService')
     }
 
     public findOne(id: number): Promise<Message> {
