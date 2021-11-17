@@ -15,6 +15,7 @@ async function bootstrap() {
         {
             transport: Transport.GRPC,
             options: {
+                url: process.env.MICROSERVICE_SERVER_HOST + ':' + process.env.MICROSERVICE_SERVER_PORT,
                 package: 'remote-message',
                 protoPath: join(__dirname, 'modules/remote-message/remote-message.proto')
             }

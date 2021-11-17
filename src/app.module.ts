@@ -28,6 +28,7 @@ import { RemoteMessageServerModule } from './modules/remote-message-server/remot
           name: 'MESSAGE_SERVICE',
           transport: Transport.GRPC,
           options: {
+              url: process.env.MICROSERVICE_CLIENT_HOST + ':' + process.env.MICROSERVICE_CLIENT_PORT,
               package: 'remote-message',
               protoPath: join(__dirname, 'modules/remote-message/remote-message.proto')
           }
