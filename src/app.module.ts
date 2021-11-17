@@ -33,7 +33,7 @@ import { RemoteMessageServerModule } from './modules/remote-message-server/remot
                         process.env.MICROSERVICE_CLIENT_HOST +
                         ':' +
                         process.env.MICROSERVICE_CLIENT_PORT,
-                    package: 'remote-message',
+                    package: 'RemoteMessage',
                     protoPath: join(
                         __dirname,
                         'modules/remote-message/remote-message.proto',
