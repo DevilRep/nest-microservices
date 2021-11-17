@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package Message;
+package RemoteMessage;
 
 service RemoteMessageService {
   rpc findOne(RemoteMessageFilterById) returns (RemoteMessage) {}

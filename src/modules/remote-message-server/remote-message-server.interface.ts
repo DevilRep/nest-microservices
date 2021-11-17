@@ -1,5 +1,5 @@
 export interface RemoteMessageServerFilterByIdInterface {
-    id: number
+    id: number;
 }
 
 export interface RemoteMessageServerInterface {

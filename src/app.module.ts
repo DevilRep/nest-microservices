@@ -1,10 +1,10 @@
-import { Module } from '@nestjs/common'
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { TypeOrmModule } from '@nestjs/typeorm'
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 import { Message } from './db/entities/message';
 import { MessagesModule } from './modules/messages/messages.module';
 import { RemoteMessageClientController } from './modules/remote-message-client/remote-message-client.controller';
@@ -12,31 +12,39 @@ import { RemoteMessageClientService } from './modules/remote-message-client/remo
 import { RemoteMessageServerModule } from './modules/remote-message-server/remote-message-server.module';
 
 @Module({
-  imports: [
-      ConfigModule.forRoot(),
-      TypeOrmModule.forRoot({
-        type: 'mysql',
-        host: process.env.DB_HOST,
-        port: Number(process.env.DB_PORT),
-        database: process.env.DB_DATABASE,
-        username: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD,
-        synchronize: true,
-        entities: [Message]
-      }),
-      ClientsModule.register([{
-          name: 'MESSAGE_SERVICE',
-          transport: Transport.GRPC,
-          options: {
-              url: process.env.MICROSERVICE_CLIENT_HOST + ':' + process.env.MICROSERVICE_CLIENT_PORT,
-              package: 'remote-message',
-              protoPath: join(__dirname, 'modules/remote-message/remote-message.proto')
-          }
-      }]),
-      MessagesModule,
-      RemoteMessageServerModule,
-  ],
-  controllers: [AppController, RemoteMessageClientController],
-  providers: [AppService, RemoteMessageClientService],
+    imports: [
+        ConfigModule.forRoot(),
+        TypeOrmModule.forRoot({
+            type: 'mysql',
+            host: process.env.DB_HOST,
+            port: Number(process.env.DB_PORT),
+            database: process.env.DB_DATABASE,
+            username: process.env.DB_USERNAME,
+            password: process.env.DB_PASSWORD,
+            synchronize: true,
+            entities: [Message],
+        }),
+        ClientsModule.register([
+            {
+                name: 'MESSAGE_SERVICE',
+                transport: Transport.GRPC,
+                options: {
+                    url:
+                        process.env.MICROSERVICE_CLIENT_HOST +
+                        ':' +
+                        process.env.MICROSERVICE_CLIENT_PORT,
+                    package: 'remote-message',
+                    protoPath: join(
+                        __dirname,
+                        'modules/remote-message/remote-message.proto',
+                    ),
+                },
+            },
+        ]),
+        MessagesModule,
+        RemoteMessageServerModule,
+    ],
+    controllers: [AppController, RemoteMessageClientController],
+    providers: [AppService, RemoteMessageClientService],
 })
 export class AppModule {}
