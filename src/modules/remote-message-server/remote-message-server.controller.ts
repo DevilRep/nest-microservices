@@ -1,5 +1,6 @@
 import { Controller } from '@nestjs/common';
-import { GrpcMethod } from '@nestjs/microservices';
+import { GrpcMethod, RpcException } from '@nestjs/microservices';
+import { EntityNotFoundError } from 'typeorm';
 
 import { MessagesService } from '../messages/messages.service';
 import { Message } from '../../db/entities/message';
@@ -16,10 +17,19 @@ export class RemoteMessageServerController {
     constructor(private readonly messagesService: MessagesService) {}
 
     @GrpcMethod('RemoteMessageService')
-    public findOne({
+    public async findOne({
         id,
     }: RemoteMessageServerFilterByIdInterface): Promise<RemoteMessageServerInterface> {
-        return this.messagesService.findOne(id);
+        try {
+            return await this.messagesService.findOne(id);
+        } catch (error) {
+            if (error instanceof EntityNotFoundError) {
+                throw new RpcException({
+                    message: 'mot found',
+                });
+            }
+            throw error;
+        }
     }
 
     @GrpcMethod('RemoteMessageService')
@@ -41,19 +51,44 @@ export class RemoteMessageServerController {
         id,
         ...data
     }: RemoteMessageServerUpdateDataInterface): Promise<Message> {
-        if (!id) {
-            throw new Error('Not Found');
+        try {
+            if (!id) {
+                throw new RpcException({
+                    message: 'mot found',
+                });
+            }
+            await this.messagesService.update(id, data);
+            return this.messagesService.findOne(id);
+        } catch (error) {
+            if (error instanceof EntityNotFoundError) {
+                throw new RpcException({
+                    message: 'mot found',
+                });
+            }
+            throw error;
         }
-        await this.messagesService.update(id, data);
-        return this.messagesService.findOne(id);
     }
 
     @GrpcMethod('RemoteMessageService')
     public async delete({
         id,
     }: RemoteMessageServerFilterByIdInterface): Promise<Message> {
-        const message: Message = await this.messagesService.findOne(id);
-        await this.messagesService.remove(id);
-        return message;
+        try {
+            if (!id) {
+                throw new RpcException({
+                    message: 'mot found',
+                });
+            }
+            const message: Message = await this.messagesService.findOne(id);
+            await this.messagesService.remove(id);
+            return message;
+        } catch (error) {
+            if (error instanceof EntityNotFoundError) {
+                throw new RpcException({
+                    message: 'mot found',
+                });
+            }
+            throw error;
+        }
     }
 }
