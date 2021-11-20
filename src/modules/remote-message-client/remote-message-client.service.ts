@@ -27,7 +27,7 @@ export class RemoteMessageClientService implements OnModuleInit {
     }
 
     public findAll(): Promise<Message[]> {
-        return lastValueFrom(this.remoteMessageService.findAll());
+        return lastValueFrom(this.remoteMessageService.findAll(null));
     }
 
     public create(data: MessageDto): Promise<Message> {

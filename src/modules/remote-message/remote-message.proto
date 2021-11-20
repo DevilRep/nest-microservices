@@ -22,7 +22,7 @@ message RemoteMessage {
 }
 
 message RemoteMessagesCollection {
-  repeated RemoteMessage message = 1;
+  repeated RemoteMessage items = 1;
 }
 
 message RemoteMessageCreateData {
