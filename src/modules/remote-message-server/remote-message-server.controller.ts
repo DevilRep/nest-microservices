@@ -58,7 +58,7 @@ export class RemoteMessageServerController {
                 });
             }
             await this.messagesService.update(id, data);
-            return this.messagesService.findOne(id);
+            return this.findOne({ id });
         } catch (error) {
             if (error instanceof EntityNotFoundError) {
                 throw new RpcException({
