@@ -21,6 +21,7 @@ export class RemoteMessageServerController {
         return this.messagesService.findOne(id);
     }
 
+    @GrpcMethod('RemoteMessageService')
     public findAll(): Promise<Message[]> {
         return this.messagesService.findAll();
     }

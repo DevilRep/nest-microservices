@@ -15,6 +15,7 @@ export interface RemoteMessageClientUpdateDataInterface {
 }
 
 export interface RemoteMessageClientServiceInterface {
+    findAll(): Observable<Message[]>;
     findOne(data: RemoteMessageClientFilterByIdInterface): Observable<Message>;
     create(data: RemoteMessageClientCreateDataInterface): Observable<Message>;
     update(data: RemoteMessageClientUpdateDataInterface): Observable<Message>;

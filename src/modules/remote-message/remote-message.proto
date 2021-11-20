@@ -1,8 +1,11 @@
 syntax = "proto3";
 
+import "google/protobuf/empty.proto";
+
 package RemoteMessage;
 
 service RemoteMessageService {
+  rpc FindAll (google.protobuf.Empty) returns (RemoteMessagesCollection) {}
   rpc FindOne (RemoteMessageFilterById) returns (RemoteMessage) {}
   rpc Create (RemoteMessageCreateData) returns (RemoteMessage) {}
   rpc Update (RemoteMessageUpdateData) returns (RemoteMessage) {}
@@ -16,6 +19,10 @@ message RemoteMessageFilterById {
 message RemoteMessage {
   int32 id = 1;
   string text = 2;
+}
+
+message RemoteMessagesCollection {
+  repeated RemoteMessage message = 1;
 }
 
 message RemoteMessageCreateData {
