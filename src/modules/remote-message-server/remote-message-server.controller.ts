@@ -8,6 +8,7 @@ import {
     RemoteMessageServerCreateDataInterface,
     RemoteMessageServerFilterByIdInterface,
     RemoteMessageServerUpdateDataInterface,
+    RemoteMessageServerCollectionInterface,
 } from './remote-message-server.interface';
 
 @Controller('remote-message-server')
@@ -22,8 +23,10 @@ export class RemoteMessageServerController {
     }
 
     @GrpcMethod('RemoteMessageService')
-    public findAll(): Promise<Message[]> {
-        return this.messagesService.findAll();
+    public async findAll(): Promise<RemoteMessageServerCollectionInterface> {
+        return {
+            items: await this.messagesService.findAll(),
+        };
     }
 
     @GrpcMethod('RemoteMessageService')

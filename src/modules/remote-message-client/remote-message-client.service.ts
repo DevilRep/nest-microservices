@@ -4,7 +4,10 @@ import { lastValueFrom } from 'rxjs';
 
 import { Message } from '../../db/entities/message';
 import { MessageDto } from '../dto/messages';
-import { RemoteMessageClientServiceInterface } from './remote-message-client.interface';
+import {
+    RemoteMessageClientCollectionInterface,
+    RemoteMessageClientServiceInterface,
+} from './remote-message-client.interface';
 
 @Injectable()
 export class RemoteMessageClientService implements OnModuleInit {
@@ -26,8 +29,10 @@ export class RemoteMessageClientService implements OnModuleInit {
         return lastValueFrom(this.remoteMessageService.findOne({ id }));
     }
 
-    public findAll(): Promise<Message[]> {
-        return lastValueFrom(this.remoteMessageService.findAll(null));
+    public async findAll(): Promise<Message[]> {
+        const result: RemoteMessageClientCollectionInterface =
+            await lastValueFrom(this.remoteMessageService.findAll(null));
+        return result.items;
     }
 
     public create(data: MessageDto): Promise<Message> {
