@@ -25,7 +25,7 @@ export class RemoteMessageServerController {
         } catch (error) {
             if (error instanceof EntityNotFoundError) {
                 throw new RpcException({
-                    message: 'mot found',
+                    message: 'not found',
                 });
             }
             throw error;
@@ -54,7 +54,7 @@ export class RemoteMessageServerController {
         try {
             if (!id) {
                 throw new RpcException({
-                    message: 'mot found',
+                    message: 'not found',
                 });
             }
             await this.messagesService.update(id, data);
@@ -62,7 +62,7 @@ export class RemoteMessageServerController {
         } catch (error) {
             if (error instanceof EntityNotFoundError) {
                 throw new RpcException({
-                    message: 'mot found',
+                    message: 'not found',
                 });
             }
             throw error;
@@ -76,7 +76,7 @@ export class RemoteMessageServerController {
         try {
             if (!id) {
                 throw new RpcException({
-                    message: 'mot found',
+                    message: 'not found',
                 });
             }
             const message: Message = await this.messagesService.findOne(id);
@@ -85,7 +85,7 @@ export class RemoteMessageServerController {
         } catch (error) {
             if (error instanceof EntityNotFoundError) {
                 throw new RpcException({
-                    message: 'mot found',
+                    message: 'not found',
                 });
             }
             throw error;
